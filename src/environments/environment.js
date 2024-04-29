@@ -1,5 +1,5 @@
 export const environment = {
-    USER_SIGN_IN_SIGN_UP_URL : "http://localhost:3000",
+    USER_SIGN_IN_SIGN_UP_URL : "https://backendmoviesapp.onrender.com",
     TMDB_BASE_URL : "https://api.themoviedb.org/3",
-    LOCALHOST_BACKEND_BASE_URL : "http://localhost:3000"
+    LOCALHOST_BACKEND_BASE_URL : "https://backendmoviesapp.onrender.com"
 }

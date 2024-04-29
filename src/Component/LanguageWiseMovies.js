@@ -5,13 +5,14 @@ import useLanguageWiseMovies from "../hooks/useLanguageWiseMovies";
 import { useParams } from 'react-router-dom';
 import Header from './Header';
 
+/* Displays all language wise movies */
 function LanguageWiseMovies() {
   useLanguageWiseMovies();
 
   const {langId} = useParams();
 
   const moviesData = useSelector((store) => {
-    // Assuming you have a moviesSlice with language-specific data
+    // Assuming I have a moviesSlice with language-specific data
     switch (langId) {
       case 'hi':
         return store.moviesSlice.hindiMovies;
@@ -22,7 +23,7 @@ function LanguageWiseMovies() {
       case 'ml':
           return store.moviesSlice.malyalamMovies;
       default:
-        return []; // Fallback to a default value
+        return []; 
     }
   });
 

@@ -4,13 +4,14 @@ import Browse from './Component/Browse';
 import appStore from './utils/appStore';
 import { Provider } from "react-redux"
 import LanguageWiseMovies from './Component/LanguageWiseMovies';
-import FavouriteMovies from './Component/FavouriteMovies';
+import WatchlistedMovie from './Component/WatchlistedMovie';
 import GptSearch from './Component/GptSearch';
 import CheckForAuthentication from './Component/CheckForAuthentication';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import Player from './Component/Player';
 import { ToastContainer } from 'react-toastify';
 
+/* Routing for App */
 const Routing = () => {
 	return (
 		<Routes>
@@ -47,7 +48,7 @@ const Routing = () => {
 
 			<Route path="/my-list" element={
 				<CheckForAuthentication>
-					<FavouriteMovies />
+					<WatchlistedMovie />
 				</CheckForAuthentication>
 			} />
 

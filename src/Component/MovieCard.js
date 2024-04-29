@@ -28,9 +28,7 @@ function MovieCard({ imageId, movieId, title, rating, overview }) {
 			},
 		});
 	};
-	console.log(watchlistedMovies?.find((movie) => {
-		return movie.movieId === movieId ? false : true;
-	}));
+
 	const addToFavourite = () => {
 		const body = {
 			imageId: imageId,
@@ -87,7 +85,7 @@ function MovieCard({ imageId, movieId, title, rating, overview }) {
 					(
 						<div className='container-card' >
 							<div className='card-container'>
-								{watchlistedMovies.some(movie => movie.movieId === movieId) ? console.log("true"): <></>}
+								{watchlistedMovies.some(movie => movie.movieId === movieId) ? <BookmarkAddedIcon sx={{width:"32px",height:"32px",position:"absolute",top:"10px",right:"10px",color:"green"}}></BookmarkAddedIcon>: <></>}
 								<img className='w-full h-full' src={IMG_CDN_URL + imageId} alt='movieImage'></img>
 							</div>
 							<div className='p-5 card-with-movie bg-black'>

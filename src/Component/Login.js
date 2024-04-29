@@ -5,9 +5,8 @@ import { login_bg_image } from '../constants/constant';
 import { callPostApi } from '../services/apiServices.js';
 import { environment } from '../environments/environment.js'
 import { getUserDetails, setUserDetails } from '../utils/sessionstorage/sessionstorage.js';
-import { useDispatch } from 'react-redux';
-import { addUser } from '../utils/userSlice.js';
 
+/* Login and signup user */
 function Login() {
 
     const [isSignInForm, setIsSignInForm] = useState(true);
@@ -47,7 +46,6 @@ function Login() {
             }
             callPostApi(`${environment.USER_SIGN_IN_SIGN_UP_URL}/user/sign-up`, payload).then(
                 (response) => {
-                    console.log(response);
                     navigate('/login');
                     setIsSignInForm(true);
                 },

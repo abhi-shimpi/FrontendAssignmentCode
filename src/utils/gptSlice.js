@@ -13,9 +13,7 @@ const gptSlice = createSlice({
             state.gptSearch = !state.gptSearch;
         },
         addMoviesData : (state,action) =>{
-            const {movieNames , movieData} = action.payload;
-            state.movieData = movieData;
-            state.movieNames = movieNames;
+            state.movieData = action.payload;
         },
         removeMoviesData : (state) =>{
             state.movieData = null;

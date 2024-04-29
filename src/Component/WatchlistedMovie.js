@@ -3,11 +3,11 @@ import { useSelector } from 'react-redux'
 import MovieCard from './MovieCard';
 import { callGetApi } from '../services/apiServices';
 import { environment } from '../environments/environment';
-import { TMDB_API_CONFIG } from '../constants/constant';
 import Header from './Header';
 import { getUserDetails } from '../utils/sessionstorage/sessionstorage';
 
-function FavouriteMovies() {
+/* Component to display watchlisted movie */
+function WatchlistedMovie() {
     const favouriteMovies = useSelector((store) => store.moviesSlice.favouriteMovies);
     const [watchlistedMovies, setWatchlistedMovies] = useState([]);
 
@@ -17,7 +17,6 @@ function FavouriteMovies() {
         callGetApi(`${environment.LOCALHOST_BACKEND_BASE_URL}/user/movies/${user?.uid}/watchlisted-movies`, {}).then(
             (response) => {
                 const moviesData = response?.data || [];
-                console.log(moviesData)
                 if (moviesData?.length) setWatchlistedMovies(moviesData);
                 else setWatchlistedMovies([]);
             },
@@ -56,4 +55,4 @@ function FavouriteMovies() {
     )
 }
 
-export default FavouriteMovies
+export default WatchlistedMovie;

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { left_arrow } from '../constants/constant';
 import { addMovieVideo } from '../utils/moviesSlice';
 
+/* Player which displays video*/
 function Player() {
     const type = "movie";
     const { id } = useParams();

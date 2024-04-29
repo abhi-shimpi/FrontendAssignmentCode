@@ -8,7 +8,6 @@ const CheckForAuthentication = ({ children }) => {
     let userDetails = getUserDetails(); 
 
     useEffect(() => {
-        console.log(userDetails);
         if (!userDetails) {
             navigate('/login');
         }

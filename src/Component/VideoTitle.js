@@ -2,12 +2,9 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom';
 
 function VideoTitle({ title, overview, movieId }) {
-    // console.log(title)
-    // console.log(overview)
     const navigate = useNavigate();
 
     const handlePlay = () => {
-        // console.log(movieId)
         navigate(`/player/${movieId}`)
     }
 

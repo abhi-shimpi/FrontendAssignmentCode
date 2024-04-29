@@ -94,7 +94,7 @@ const Header = () => {
             }
             {
               !gptSearch ?
-                (<button className='text-sm p-2 rounded-md bg-gray-500 text-white' onClick={handleGptSearch}>Gpt Search</button>) :
+                (<button className='text-sm p-2 rounded-md bg-gray-500 text-white' onClick={handleGptSearch}>Search</button>) :
                 (<button className='p-2 rounded-md bg-gray-500 text-white' onClick={showHomePage}>Home</button>)
             }
             <button className='hidden lg:block p-2 rounded-md bg-red-600 text-white' onClick={handleSignOut}>Sign Out</button>

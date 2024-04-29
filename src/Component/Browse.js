@@ -9,7 +9,9 @@ import GptSearch from './GptSearch';
 import Header from "./Header";
 import useWatchListMovie from '../hooks/useWatchListMovie';
 
+/* Main body of app */
 function Browse() {
+  /* Custom hooks */
   useNowPlayingMovies();
   usePopularMovies();
   useTopRatedMovies();

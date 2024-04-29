@@ -33,7 +33,6 @@ export const callPostApi = (
         axios
             .post(api, body,config)
             .then((response) => {
-                console.log("response",response);
                 if (
                     response.status === 200 ||
                     response.status === 201
