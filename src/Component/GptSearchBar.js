@@ -1,7 +1,6 @@
 import React, { useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { constants } from "../constants/languageConstants";
-import openai from '../utils/openai';
 import { login_bg_image, options } from '../constants/constant';
 import { addMoviesData, addSearchStatus } from '../utils/gptSlice';
 
