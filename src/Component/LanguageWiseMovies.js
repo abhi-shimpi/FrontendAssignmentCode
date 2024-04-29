@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import useLanguageWiseMovies from "../hooks/useLanguageWiseMovies";
 import { useParams } from 'react-router-dom';
 import Header from './Header';
+import ShimmerUi from './ShimmerUi';
 
 /* Displays all language wise movies */
 function LanguageWiseMovies() {
@@ -26,6 +27,10 @@ function LanguageWiseMovies() {
         return []; 
     }
   });
+
+  if(!Object.keys(moviesData)?.length) {
+    return <ShimmerUi></ShimmerUi>
+}
 
   return (
     <div className='bg-black'>

@@ -5,6 +5,7 @@ import { callGetApi } from '../services/apiServices';
 import { environment } from '../environments/environment';
 import Header from './Header';
 import { getUserDetails } from '../utils/sessionstorage/sessionstorage';
+import ShimmerUi from './ShimmerUi';
 
 /* Component to display watchlisted movie */
 function WatchlistedMovie() {
@@ -28,6 +29,15 @@ function WatchlistedMovie() {
     useEffect(() => {
         getWatchlistedMoviesData();
     }, [favouriteMovies]);
+
+    if (!watchlistedMovies?.length) {
+        return (
+            <>
+                <Header />
+                <ShimmerUi></ShimmerUi>
+            </>
+        )
+    }
 
     return (
         <>

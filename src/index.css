@@ -61,6 +61,12 @@ body {
     background-color: #bebbcf;
 }
 
+.shimmer-card-login {
+    width: 430px;
+    height: 406px;
+    background-color: transparent;
+}
+
 .loader-element {
     display: block;
     position: relative;

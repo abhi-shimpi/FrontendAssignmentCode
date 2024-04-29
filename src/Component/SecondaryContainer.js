@@ -1,11 +1,15 @@
 import React from 'react';
 import MoviesList from './MoviesList';
 import { useSelector } from 'react-redux';
+import ShimmerUi from './ShimmerUi';
 
 /* Displays movie list */
 function SecondaryContainer() {
     const moviesData = useSelector((store) => store.moviesSlice);
-
+    
+    if(!Object.keys(moviesData)?.length) {
+        return <ShimmerUi></ShimmerUi>
+    }
     return (
         <>
             {

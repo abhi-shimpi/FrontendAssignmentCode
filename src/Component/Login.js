@@ -5,10 +5,11 @@ import { login_bg_image } from '../constants/constant';
 import { callPostApi } from '../services/apiServices.js';
 import { environment } from '../environments/environment.js'
 import { getUserDetails, setUserDetails } from '../utils/sessionstorage/sessionstorage.js';
+import ShimmerForLogin from './ShimmerForLogin.js';
 
 /* Login and signup user */
 function Login() {
-
+    const [isReecievedResponse, serIsRecievedResponse] = useState(true);
     const [isSignInForm, setIsSignInForm] = useState(true);
     const [errorMessage, setErrorMessage] = useState("");
     const [showPassword, setShowPassword] = useState(false);
@@ -17,14 +18,14 @@ function Login() {
     const email = useRef(null);
     const password = useRef(null);
     const name = useRef(null);
-    let userDetails = getUserDetails(); 
+    let userDetails = getUserDetails();
 
-    useEffect(()=>{
+    useEffect(() => {
         userDetails = JSON.parse(userDetails);
         if (userDetails?.token) {
             navigate('/browse');
         }
-    },[location,userDetails]);
+    }, [location, userDetails]);
 
     const handleCheckboxChange = () => {
         setShowPassword(!showPassword);
@@ -44,9 +45,11 @@ function Login() {
                 email: email.current.value,
                 password: password.current.value
             }
+            serIsRecievedResponse(false);
             callPostApi(`${environment.USER_SIGN_IN_SIGN_UP_URL}/user/sign-up`, payload).then(
                 (response) => {
                     navigate('/login');
+                    serIsRecievedResponse(true);
                     setIsSignInForm(true);
                 },
                 (error) => {
@@ -63,9 +66,11 @@ function Login() {
                 email: email.current.value,
                 password: password.current.value
             }
+            serIsRecievedResponse(false);
             callPostApi(`${environment.USER_SIGN_IN_SIGN_UP_URL}/user/sign-in`, payload).then(
                 (response) => {
                     setUserDetails(JSON.stringify(response));
+                    serIsRecievedResponse(true);
                     navigate('/browse');
                 },
                 (error) => {
@@ -79,6 +84,13 @@ function Login() {
         }
     }
 
+    if (!isReecievedResponse) {
+        return (
+            <div>
+                <ShimmerForLogin></ShimmerForLogin>
+            </div>
+        )
+    }
 
 
     return (
