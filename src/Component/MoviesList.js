@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import MovieCard from "./MovieCard";
 import "../index.css"
+import OverlappedLoader from './OverlappedLoader';
 
 function MoviesList({ title, moviesData }) {
+  const [loader, setLoader] = useState();
+
   const handleMouseEnter = () => {
     // setIsMouseEnter(true);
   }
@@ -21,11 +24,13 @@ function MoviesList({ title, moviesData }) {
                 rating={movie.vote_average}
                 overview={movie.overview}
                 showAddTo={true}
+                setLoader={setLoader}
               />
             ))
           }
         </div>
       </div>
+      {loader && <OverlappedLoader status={true} size={50} />}
     </>
   )
 }

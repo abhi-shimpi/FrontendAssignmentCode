@@ -112,4 +112,10 @@ body {
         z-index: 99;
 
     }
+
+    .shimmer-card-login {
+        width: 571px;
+        height: 406px;
+        background-color: transparent;
+    }
 }

@@ -6,23 +6,29 @@ import { environment } from '../environments/environment';
 import Header from './Header';
 import { getUserDetails } from '../utils/sessionstorage/sessionstorage';
 import ShimmerUi from './ShimmerUi';
+import OverlappedLoader from './OverlappedLoader';
 
 /* Component to display watchlisted movie */
 function WatchlistedMovie() {
     const favouriteMovies = useSelector((store) => store.moviesSlice.favouriteMovies);
     const [watchlistedMovies, setWatchlistedMovies] = useState([]);
+    const [isDataLoading, setIsDataLoading] = useState(false);
+    const [loader, setLoader] = useState();
 
     const getWatchlistedMoviesData = () => {
         const userDetails = getUserDetails();
         const user = JSON.parse(userDetails);
+        setIsDataLoading(true);
         callGetApi(`${environment.LOCALHOST_BACKEND_BASE_URL}/user/movies/${user?.uid}/watchlisted-movies`, {}).then(
             (response) => {
                 const moviesData = response?.data || [];
                 if (moviesData?.length) setWatchlistedMovies(moviesData);
                 else setWatchlistedMovies([]);
+                setIsDataLoading(false);
             },
             (error) => {
                 console.log(error);
+                setIsDataLoading(false);
             }
         )
     }
@@ -30,7 +36,7 @@ function WatchlistedMovie() {
         getWatchlistedMoviesData();
     }, [favouriteMovies]);
 
-    if (!watchlistedMovies?.length) {
+    if (isDataLoading) {
         return (
             <>
                 <Header />
@@ -53,6 +59,7 @@ function WatchlistedMovie() {
                                 rating={movie.rating}
                                 title={movie.title}
                                 showAddTo={false}
+                                setLoader={setLoader}
                             >
                             </MovieCard>
                         ))) :
@@ -61,6 +68,7 @@ function WatchlistedMovie() {
                         )
                 }
             </div>
+            {loader && <OverlappedLoader status={true} size={50} />}
         </>
     )
 }

@@ -12,7 +12,7 @@ function Login() {
     const [isReecievedResponse, serIsRecievedResponse] = useState(true);
     const [isSignInForm, setIsSignInForm] = useState(true);
     const [errorMessage, setErrorMessage] = useState("");
-    const [showPassword, setShowPassword] = useState(false);
+    const [showPassword, setShowPassword] = useState(true);
     const navigate = useNavigate();
     const location = useLocation();
     const email = useRef(null);
@@ -56,6 +56,7 @@ function Login() {
                     console.log(error);
                     if (error.response?.status === 404) {
                         setErrorMessage(error.response?.data?.error);
+                        serIsRecievedResponse(true);
                         return;
                     }
                 }
@@ -77,6 +78,7 @@ function Login() {
                     console.log(error);
                     if (error.response?.status === 404 || error.response?.status === 400) {
                         setErrorMessage(error.response?.data?.error);
+                        serIsRecievedResponse(true);
                         return;
                     }
                 }

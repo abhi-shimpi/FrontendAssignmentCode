@@ -1,17 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { IMG_CDN_URL, star_img, add_btn, remove_btn, play_btn, TMDB_API_CONFIG } from '../constants/constant'
 import video from "../assets/dummy_trailer.mp4"
 import { useDispatch, useSelector } from 'react-redux'
 import { addFavouriteMovies, removeFavouriteMovies } from "../utils/moviesSlice";
-import { ToastContainer, toast } from 'react-toastify';
+import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import { callPostApi } from '../services/apiServices';
 import { environment } from '../environments/environment';
 import { getUserDetails } from '../utils/sessionstorage/sessionstorage';
 import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
+import OverlappedLoader from './OverlappedLoader';
 
-function MovieCard({ imageId, movieId, title, rating, overview }) {
+function MovieCard({ imageId, movieId, title, rating, overview ,setLoader}) {
 	const watchlistedMovies = useSelector((store) => store.moviesSlice.favouriteMovies);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -39,13 +40,16 @@ function MovieCard({ imageId, movieId, title, rating, overview }) {
 			userId: user?.uid
 		}
 
+		setLoader(true);
 		callPostApi(`${environment.LOCALHOST_BACKEND_BASE_URL}/user/movies/add-movie-to-watchlist`, body).then(
 			(response) => {
 				notify();
+				setLoader(false);
 				dispatch(addFavouriteMovies([...watchlistedMovies, body]));
 			},
 			(error) => {
 				console.log(error);
+				setLoader(false);
 			}
 		)
 	}
@@ -55,10 +59,11 @@ function MovieCard({ imageId, movieId, title, rating, overview }) {
 			movieId: movieId,
 			userId: user?.uid
 		}
-
+		setLoader(true);
 		callPostApi(`${environment.LOCALHOST_BACKEND_BASE_URL}/user/movies/remove/watchlisted-movie`, body).then(
 			(response) => {
-				dispatch(removeFavouriteMovies(imageId));
+				setLoader(false);
+				dispatch(removeFavouriteMovies(movieId));
 				toast.done('Movie removed from favourites', {
 					position: toast.POSITION.TOP_RIGHT,
 					autoClose: 1000,
@@ -70,6 +75,7 @@ function MovieCard({ imageId, movieId, title, rating, overview }) {
 			},
 			(error) => {
 				console.log(error);
+				setLoader(false);
 			}
 		)
 	}
@@ -78,6 +84,7 @@ function MovieCard({ imageId, movieId, title, rating, overview }) {
 		navigate(`/player/${movieId}`)
 	}
 
+	console.log(watchlistedMovies);
 	return (
 		<>
 			{
@@ -85,7 +92,7 @@ function MovieCard({ imageId, movieId, title, rating, overview }) {
 					(
 						<div className='container-card' >
 							<div className='card-container'>
-								{watchlistedMovies.some(movie => movie.movieId === movieId) ? <BookmarkAddedIcon sx={{width:"32px",height:"32px",position:"absolute",top:"10px",right:"10px",color:"green"}}></BookmarkAddedIcon>: <></>}
+								{watchlistedMovies.some(movie => movie.movieId === movieId) ? <BookmarkAddedIcon sx={{ width: "32px", height: "32px", position: "absolute", top: "10px", right: "10px", color: "green" }}></BookmarkAddedIcon> : <></>}
 								<img className='w-full h-full' src={IMG_CDN_URL + imageId} alt='movieImage'></img>
 							</div>
 							<div className='p-5 card-with-movie bg-black'>
