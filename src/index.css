@@ -16,8 +16,8 @@ body {
 
 .container-card {
     width: 250px;
-    /* height: 290px; */
-    /* border-radius: 25px; */
+    height: fit-content;
+    border-radius: 25px;
     position: relative;
     z-index: 1;
 }
